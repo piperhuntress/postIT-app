@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { SERVER_URL } from "../config";
 
 const initialState = {
   posts: [],
   comments: [],
   likes: [],
 };
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export const savePost = createAsyncThunk("posts/savePost", async (postData) => {
   try {

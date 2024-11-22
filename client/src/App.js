@@ -11,7 +11,9 @@ import Register from "./Components/Register";
 import { useSelector } from "react-redux";
 
 const App = () => {
-  const email = useSelector((state) => state.users.user.email);
+  const email = useSelector((state) =>
+    state.users && state.users.user ? state.users.user.email : ""
+  );
 
   return (
     <Container fluid>
