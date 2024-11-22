@@ -7,7 +7,7 @@ const User = () => {
   const user = useSelector((state) => state.users.user);
   var picURL = "";
   // Check if the user has a profile picture
-  if (user.profilePic != null) {
+  if (user.profilePic !== "user.png") {
     // Construct the URL for the user's profile picture
     picURL = "http://localhost:3001/uploads/" + user.profilePic;
   } else {

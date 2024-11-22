@@ -5,6 +5,8 @@ import { store } from "./Store/store";
 import { Provider } from "react-redux";
 import Register from "./Components/Register";
 import Home from "./Components/Home";
+import { persistore } from "./Store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,7 +14,10 @@ root.render(
 
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      {/* Wrapping with PersistGate */}
+      <PersistGate loading={null} persistor={persistore}>
+        <App />
+      </PersistGate>
     </React.StrictMode>
   </Provider>
 );

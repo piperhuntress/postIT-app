@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { SERVER_URL } from "../config";
 
 const initialState = {
   posts: [],
@@ -9,7 +10,7 @@ const initialState = {
 
 export const savePost = createAsyncThunk("posts/savePost", async (postData) => {
   try {
-    const response = await axios.post("http://localhost:3001/savePost", {
+    const response = await axios.post(`${SERVER_URL}/savePost`, {
       postMsg: postData.postMsg,
       email: postData.email,
     });
@@ -23,7 +24,7 @@ export const savePost = createAsyncThunk("posts/savePost", async (postData) => {
 
 export const getPosts = createAsyncThunk("post/getPosts", async () => {
   try {
-    const response = await axios.get("http://localhost:3001/getPosts");
+    const response = await axios.get(`${SERVER_URL}/getPosts`);
     return response.data.posts;
     //console.log(response);
   } catch (error) {
@@ -35,7 +36,7 @@ export const likePost = createAsyncThunk("posts/likePost", async (postData) => {
   try {
     //Pass along the URL the postId
     const response = await axios.put(
-      `http://localhost:3001/likePost/${postData.postId}`,
+      `${SERVER_URL}/likePost/${postData.postId}`,
       {
         userId: postData.userId,
       }

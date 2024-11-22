@@ -9,14 +9,29 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import fs from "fs";
 import path from "path";
+import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(express.json());
+app.use(cookieParser());
+
+dotenv.config(); //retrieve the environment variables.
+const PORT = process.env.PORT;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
+const DB_CLUSTER = process.env.DB_CLUSTER;
+
 //Database connection
-const connectString =
-  "mongodb+srv://jasminetumulak:oman12345@cluster0.lvic91v.mongodb.net/postITDb?retryWrites=true&w=majority&appName=Cluster0";
+//const connectString =
+// "mongodb+srv://jasminetumulak:oman12345@cluster0.lvic91v.mongodb.net/postITDb?retryWrites=true&w=majority&appName=Cluster0";
+
+const connectString = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
 
 mongoose.connect(connectString, {
   useNewUrlParser: true,
@@ -246,6 +261,6 @@ app.put(
   }
 );
 
-app.listen(3001, () => {
-  console.log("You are connected");
+app.listen(PORT, () => {
+  console.log("You are connected at port: " + PORT);
 });
