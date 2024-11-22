@@ -33,10 +33,7 @@ const DB_CLUSTER = process.env.DB_CLUSTER;
 
 const connectString = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
 
-mongoose.connect(connectString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(connectString);
 
 // Serve static files from the 'uploads' directory
 
