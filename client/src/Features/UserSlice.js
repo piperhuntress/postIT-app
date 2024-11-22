@@ -1,11 +1,11 @@
 import { UsersData } from "../ExampleData";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { SERVER_URL } from "../config";
+//import { SERVER_URL } from "../config";
 
 //const initialState = { value: [] }; //list of user is an object with empty array as initial value
 //const initialState = { value: UsersData }; //Assign the data from the exampleData
-//const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const initialState = {
   user: {},
