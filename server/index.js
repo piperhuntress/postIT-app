@@ -15,6 +15,15 @@ import dotenv from "dotenv";
 
 const app = express();
 app.use(express.json());
+
+const CLIENT_URL = process.env.CLIENT_URL;
+//Middleware
+const corsOptions = {
+  origin: CLIENT_URL, //client URL local
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+};
+
 app.use(cors());
 
 app.use(express.json());
