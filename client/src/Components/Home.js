@@ -9,7 +9,9 @@ import { useEffect } from "react";
 import Location from "./Location";
 
 const Home = () => {
-  const email = useSelector((state) => state.users.user.email);
+  const email = useSelector((state) =>
+    state.users && state.users.user ? state.users.user.email : ""
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
