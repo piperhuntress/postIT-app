@@ -41,7 +41,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      navigate("/login");
+      navigate("/");
     }
     if (isSuccess) {
       navigate("/home");
