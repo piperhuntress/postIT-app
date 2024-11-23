@@ -16,7 +16,14 @@ import dotenv from "dotenv";
 const app = express();
 app.use(express.json());
 
-app.use(cors());
+//Middleware
+const corsOptions = {
+  //origin: "http://localhost:3001", //client URL local
+  origin: "https://postit-app-al2g.onrender.com", //Host URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
