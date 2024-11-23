@@ -44,7 +44,7 @@ const Login = () => {
       navigate("/login");
     }
     if (isSuccess) {
-      navigate("/");
+      navigate("/home");
     }
   }, [user, isError, isSuccess]);
 

@@ -66,7 +66,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!user.email) {
-      navigate("/login");
+      navigate("/");
     }
   }, [user.email, navigate]);
 

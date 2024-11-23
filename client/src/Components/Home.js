@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!email) {
-      navigate("/login");
+      navigate("/");
     }
   }, [email]);
 

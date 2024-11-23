@@ -16,10 +16,18 @@ import dotenv from "dotenv";
 const app = express();
 app.use(express.json());
 
+dotenv.config(); //retrieve the environment variables.
+const PORT = process.env.PORT;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
+const DB_CLUSTER = process.env.DB_CLUSTER;
+const CLIENT_URL = process.env.CLIENT_URL;
+
 //Middleware
 const corsOptions = {
-  //origin: "http://localhost:3001", //client URL local
-  origin: "https://postit-app-al2g.onrender.com", //Host URL
+  //origin: "http://localhost:3000", //client URL local
+  origin: "https://postit-app-al2g.onrender.com", //client URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Enable credentials (cookies, authorization headers, etc.)
 };
@@ -27,13 +35,6 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
-
-dotenv.config(); //retrieve the environment variables.
-const PORT = process.env.PORT;
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const DB_NAME = process.env.DB_NAME;
-const DB_CLUSTER = process.env.DB_CLUSTER;
 
 //Database connection
 //const connectString =
@@ -114,8 +115,6 @@ app.post("/login", async (req, res) => {
 
 //POST API-logout
 app.post("/logout", async (req, res) => {
-  // Purge the persisted Redux store
-  persistore.purge();
   res.status(200).json({ message: "Logged out successfully" });
 });
 

@@ -25,8 +25,13 @@ const Posts = () => {
   };
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, []);
+    if (!email) {
+      navigate("/");
+    } else {
+      dispatch(getPosts());
+    }
+  }, [email]);
+
   return (
     <div>
       <Table className="table">

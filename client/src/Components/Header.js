@@ -15,18 +15,20 @@ import { logout } from "../Features/UserSlice";
 import { useState } from "react";
 import { FaHome, FaUserAlt, FaSignOutAlt } from "react-icons/fa";
 import { persistore } from "../Store/store";
+import { resetStore } from "../Store/store";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handlelogout = async () => {
-    //persistore.purge();
+    resetStore(); // Reset the store when logging out
+    persistore.purge();
     dispatch(logout());
     //ensure that the state update from the logout action has been processed before proceeding to the next step.
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    navigate("/login"); //redirect to login page route.
+    navigate("/"); //redirect to login page route.
   };
 
   return (
@@ -40,7 +42,7 @@ const Header = () => {
         <Nav>
           <NavItem></NavItem>
           <NavItem>
-            <Link to="/">
+            <Link to="/home">
               <FaHome id="homeLink" />
             </Link>
           </NavItem>

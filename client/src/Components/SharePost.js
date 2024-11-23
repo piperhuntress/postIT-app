@@ -10,7 +10,7 @@ import {
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { savePost } from "../Features/PostSlice";
 
 const SharePosts = () => {
@@ -36,7 +36,11 @@ const SharePosts = () => {
     dispatch(savePost(postData)); // Dispatch the savePost thunk from the Posts Slice.
     setpostMsg(""); //clear the text area after posting
   };
-
+  useEffect(() => {
+    if (!email) {
+      navigate("/");
+    }
+  }, [email]);
   return (
     <Container>
       <Row>
