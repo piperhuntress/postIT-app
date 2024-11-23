@@ -14,12 +14,14 @@ import { useDispatch } from "react-redux";
 import { logout } from "../Features/UserSlice";
 import { useState } from "react";
 import { FaHome, FaUserAlt, FaSignOutAlt } from "react-icons/fa";
+import { persistore } from "../Store/store";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handlelogout = async () => {
+    //persistore.purge();
     dispatch(logout());
     //ensure that the state update from the logout action has been processed before proceeding to the next step.
     await new Promise((resolve) => setTimeout(resolve, 100));

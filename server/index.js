@@ -107,6 +107,8 @@ app.post("/login", async (req, res) => {
 
 //POST API-logout
 app.post("/logout", async (req, res) => {
+  // Purge the persisted Redux store
+  persistore.purge();
   res.status(200).json({ message: "Logged out successfully" });
 });
 
