@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import * as ENV from "../config";
 
 const Location = () => {
   const [ip, setIp] = useState(null); // State to hold the IP address
   const [geoData, setGeoData] = useState(null); // State to hold geolocation data
-  const API_KEY = process.env.REACT_APP_IPIFY_KEY;
 
   // Fetch the IP address dynamically
   const fetchIpAddress = async () => {
@@ -21,7 +21,7 @@ const Location = () => {
     if (!ip) return; // Ensure IP is available before making the request
     try {
       const response = await axios.get(
-        `https://geo.ipify.org/api/v2/country?apiKey=${API_KEY}&ipAddress=${ip}`
+        `https://geo.ipify.org/api/v2/country?apiKey=${ENV.API_KEY}&ipAddress=${ip}`
       );
       setGeoData(response.data); // Set geolocation data in state
       console.log("GeoLocation Data:", response.data);

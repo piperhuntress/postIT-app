@@ -11,23 +11,14 @@ import fs from "fs";
 import path from "path";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
+import * as ENV from "./config.js";
 
 const app = express();
 app.use(express.json());
 
-dotenv.config(); //retrieve the environment variables.
-const PORT = process.env.PORT;
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const DB_NAME = process.env.DB_NAME;
-const DB_CLUSTER = process.env.DB_CLUSTER;
-const CLIENT_URL = process.env.CLIENT_URL;
-
 //Middleware
 const corsOptions = {
-  //origin: "http://localhost:3000", //client URL local
-  origin: "https://postit-app-al2g.onrender.com", //client URL
+  origin: ENV.CLIENT_URL, //client URL local
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Enable credentials (cookies, authorization headers, etc.)
 };
@@ -36,11 +27,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
-//Database connection
-//const connectString =
-// "mongodb+srv://jasminetumulak:oman12345@cluster0.lvic91v.mongodb.net/postITDb?retryWrites=true&w=majority&appName=Cluster0";
-
-const connectString = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
+const connectString = `mongodb+srv://${ENV.DB_USER}:${ENV.DB_PASSWORD}@${ENV.DB_CLUSTER}/${ENV.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
 
 mongoose.connect(connectString);
 
@@ -267,6 +254,8 @@ app.put(
   }
 );
 
-app.listen(PORT || 3001, () => {
-  console.log("You are connected at port: " + PORT);
+const port = ENV.PORT || 3001;
+
+app.listen(port, () => {
+  console.log(`You are connected at port: ${port}`);
 });

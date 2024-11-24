@@ -1,11 +1,10 @@
 import { UsersData } from "../ExampleData";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-//import { SERVER_URL } from "../config";
+import * as ENV from "../config";
 
 //const initialState = { value: [] }; //list of user is an object with empty array as initial value
 //const initialState = { value: UsersData }; //Assign the data from the exampleData
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const initialState = {
   user: {},
@@ -22,7 +21,7 @@ export const registerUser = createAsyncThunk(
   async (userData) => {
     try {
       //sends a POST request to the server along the request body object
-      const response = await axios.post(`${SERVER_URL}/registerUser`, {
+      const response = await axios.post(`${ENV.SERVER_URL}/registerUser`, {
         name: userData.name,
         email: userData.email,
         password: userData.password,
@@ -38,7 +37,7 @@ export const registerUser = createAsyncThunk(
 
 export const login = createAsyncThunk("users/login", async (userData) => {
   try {
-    const response = await axios.post(`${SERVER_URL}/login`, {
+    const response = await axios.post(`${ENV.SERVER_URL}/login`, {
       email: userData.email,
       password: userData.password,
     });
@@ -58,7 +57,7 @@ export const login = createAsyncThunk("users/login", async (userData) => {
 export const logout = createAsyncThunk("/users/logout", async () => {
   try {
     // Send a request to your server to log the user out
-    const response = await axios.post(`${SERVER_URL}/logout`);
+    const response = await axios.post(`${ENV.SERVER_URL}/logout`);
   } catch (error) {}
 });
 
@@ -72,7 +71,7 @@ export const updateUserProfile = createAsyncThunk(
 
       // Send a PUT request to the server to update the user profile
       const response = await axios.put(
-        `${SERVER_URL}/updateUserProfile/${userData.email}`, // API endpoint for updating user profile
+        `${ENV.SERVER_URL}/updateUserProfile/${userData.email}`, // API endpoint for updating user profile
         {
           // Request payload with user data to be updated
           email: userData.email,
