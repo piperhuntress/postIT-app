@@ -32,7 +32,8 @@ const Header = () => {
   };
 
   return (
-    <Container>
+    /*Usng reactstrap */
+    /*     <Container>
       <Navbar className="header">
         <NavbarBrand href="/" className="me-auto">
           <Link>
@@ -58,6 +59,44 @@ const Header = () => {
           </NavItem>
         </Nav>
       </Navbar>
+    </Container> */
+    /*Usng bootstrap */
+    <Container>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link className="navbar-brand">
+          <img src={logo} className="logo" />
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item active">
+              <Link to="/home">
+                <FaHome id="homeLink" />
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/profile">
+                <FaUserAlt id="profileLink" />
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link onClick={handlelogout}>
+                <FaSignOutAlt id="logOutLink" />
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </Container>
   );
 };
