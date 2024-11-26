@@ -1,6 +1,7 @@
 import { Label } from "reactstrap";
 import userImage from "../Images/user.png"; // Import a default user image
 import { useSelector } from "react-redux"; // Import useSelector to access the Redux store
+import * as ENV from "../config";
 
 const User = () => {
   // Access the user data from the Redux store
@@ -9,7 +10,7 @@ const User = () => {
   // Check if the user has a profile picture
   if (user.profilePic !== "user.png") {
     // Construct the URL for the user's profile picture
-    picURL = "http://localhost:3001/uploads/" + user.profilePic;
+    picURL = ENV.SERVER_URL + "/uploads/" + user.profilePic;
   } else {
     // Use the default user image if no profile picture is available
     picURL = userImage;
