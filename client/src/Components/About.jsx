@@ -8,7 +8,6 @@ const About = () => {
       <p>This project is developed by: Jasmin Estudillo.</p>
       <p>Email: jasmin.estudillo@utas.edu.om</p>
       <img src={userImage} alt="devimage" className="userImage"/>
-      <button>Contact developer</button>
     </div>
   );
 };

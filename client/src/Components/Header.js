@@ -13,11 +13,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../Features/UserSlice";
 import { useState } from "react";
-import { FaHome, FaUserAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaUserAlt, FaSignOutAlt, FaUsersCog } from "react-icons/fa";
 import { persistore } from "../Store/store";
 import { resetStore } from "../Store/store";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const user = useSelector((state) => state.users.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -84,11 +87,20 @@ const Header = () => {
                 <FaHome id="homeLink" />
               </Link>
             </li>
+            {user.userType === "admin" && (
+              <li className="nav-item">
+                <Link to="/manage">
+                  <FaUsersCog id="manage" />
+                </Link>
+              </li>
+            )}
+
             <li className="nav-item">
               <Link to="/profile">
                 <FaUserAlt id="profileLink" />
               </Link>
             </li>
+
             <li className="nav-item">
               <Link onClick={handlelogout}>
                 <FaSignOutAlt id="logOutLink" />
