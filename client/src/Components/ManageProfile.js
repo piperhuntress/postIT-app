@@ -20,15 +20,21 @@ import { updateUserProfile } from "../Features/UserSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userSchemaValidation } from "../Validations/UserValidations";
+import axios from "axios";
+import * as ENV from "../config";
 
-const Profile = () => {
-  const user = useSelector((state) => state.users.user); //from Redux Store
+const ManageProfile = () => {
+  // const user = useSelector((state) => state.users.user); //from Redux Store
+  const [user, setUser] = useState({});
+  const id = useParams().id;
 
   // Create state variables
-  const [userName, setUserName] = useState(user.name);
-  const [pwd, setPwd] = useState(user.password);
-  const [confirmPassword, setConfirmPassword] = useState(user.password);
-  const [profilePic, setProfilePic] = useState(user.profilePic);
+
+  const [userName, setUserName] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+  const [userType, setuserType] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,13 +58,14 @@ const Profile = () => {
       name: userName, // Get the updated name from the state variable
       password: pwd, // Get the updated password from the state variable
       profilePic: profilePic,
+      userType: userType,
     };
     console.log(userData);
     // Dispatch the updateUserProfile action to update the user profile in the Redux store
     dispatch(updateUserProfile(userData));
     alert("Profile Updated.");
     // Navigate back to the profile page after the update is completed
-    navigate("/profile");
+    navigate("/manage");
   };
 
   // Function to handle file input change
@@ -69,11 +76,28 @@ const Profile = () => {
     else setProfilePic(event.target.files[0]);
   };
 
-  useEffect(() => {
-    if (!user.email) {
-      navigate("/");
+  const getUser = async () => {
+    try {
+      const response = await axios.get(`${ENV.SERVER_URL}/getUser/${id}`);
+      const user = response.data.user;
+      //console.log(user);
+      setUserName(user.name);
+      setPwd(user.password);
+      setProfilePic(user.profilePic);
+      setConfirmPassword(user.password);
+      setuserType(user.userType);
+      setUser(user); //set the user in the state
+      console.log(user);
+    } catch (error) {
+      console.log(user);
     }
-  }, [user, navigate]);
+  };
+
+  useEffect(() => {
+    if (id) {
+      getUser();
+    }
+  }, [id]);
 
   return (
     <Container fluid>
@@ -120,6 +144,18 @@ const Profile = () => {
               />
             </FormGroup>
             <FormGroup>
+              <Label for="usertype">User Type</Label>
+              <select
+                id="usertype"
+                name="usertype"
+                value={userType}
+                onChange={(e) => setuserType(e.target.value)}
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </FormGroup>
+            <FormGroup>
               <Button color="primary" className="button" type="submit">
                 Update Profile
               </Button>
@@ -131,4 +167,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ManageProfile;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getUsers } from "../Features/ManageUserSlice";
+import { deleteUser, getUsers } from "../Features/ManageUserSlice";
 import * as ENV from "../config";
 
 const Manage = () => {
@@ -11,6 +11,15 @@ const Manage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    dispatch(deleteUser(id));
+    navigate("/manage");
+  };
+
+  const handleUpdate = (id) => {
+    navigate("/manageprofile/" + id);
+  };
 
   useEffect(() => {
     if (!user) {
@@ -34,15 +43,37 @@ const Manage = () => {
         </thead>
         <tbody>
           {allUsers.map((user) => (
-            <tr key={user.email}>
+            <tr key={user._id}>
               <td>
                 <img src={picURL + user.profilePic} className="userImage" />
               </td>
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.userType}</td>
-              <td>Delete</td>
-              <td>Update</td>
+              <td>
+                <button
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete this user?"
+                      )
+                    ) {
+                      handleDelete(user._id);
+                    }
+                  }}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </td>
+              <td>
+                <button
+                  onClick={() => handleUpdate(user._id)}
+                  className="btn btn-primary"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -7,7 +7,7 @@ const initialState = {
   status: "",
 };
 
-export const getUsers = createAsyncThunk("user/getUsers", async () => {
+export const getUsers = createAsyncThunk("manageUser/getUsers", async () => {
   try {
     const response = await axios.get(`${ENV.SERVER_URL}/getUsers`);
     return response.data.users;
@@ -17,6 +17,25 @@ export const getUsers = createAsyncThunk("user/getUsers", async () => {
   }
 });
 
+export const deleteUser = createAsyncThunk(
+  "manageUser/deleteUser",
+  async (id) => {
+    try {
+      const response = await axios.delete(`${ENV.SERVER_URL}/deleteUser/${id}`);
+      return id;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+/* export const getUser = createAsyncThunk("manageUser/getUser", async (id) => {
+  try {
+    const response = await axios.get(`${ENV.SERVER_URL}/getUser/${id}`);
+    return id;
+  } catch (error) {
+    console.log(error);
+  }
+}); */
 export const manageUserSlice = createSlice({
   name: "allUsers", //name of the state
   initialState, // initial value of the state
@@ -36,6 +55,17 @@ export const manageUserSlice = createSlice({
       .addCase(getUsers.rejected, (state, action) => {
         state.status = "failed";
         state.iserror = action.error.message;
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.allUsers = state.allUsers.filter(
+          (user) => user._id !== action.payload
+        );
+      })
+      .addCase(deleteUser.rejected, (state) => {
+        state.status = "failed";
       });
   },
 });

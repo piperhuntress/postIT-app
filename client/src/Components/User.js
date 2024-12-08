@@ -3,9 +3,10 @@ import userImage from "../Images/user.png"; // Import a default user image
 import { useSelector } from "react-redux"; // Import useSelector to access the Redux store
 import * as ENV from "../config";
 
-const User = () => {
+const User = (userData) => {
   // Access the user data from the Redux store
-  const user = useSelector((state) => state.users.user);
+  //const user = useSelector((state) => state.users.user);
+  const user = userData.userData;
   var picURL = "";
   // Check if the user has a profile picture
   if (user.profilePic !== "user.png") {

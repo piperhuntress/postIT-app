@@ -78,6 +78,7 @@ export const updateUserProfile = createAsyncThunk(
           name: userData.name,
           password: userData.password,
           profilePic: userData.profilePic,
+          userType: userData.userType,
         },
         {
           headers: {

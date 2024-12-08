@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import Location from "./Location";
 
 const Home = () => {
+  const user = useSelector((state) => state.users.user); //from Redux Store
   const email = useSelector((state) => state.users.user.email);
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const Home = () => {
     <>
       <Row>
         <Col md={3}>
-          <User />
+          <User userData={user} />
         </Col>
         <Col md={9}>
           <SharePosts />
