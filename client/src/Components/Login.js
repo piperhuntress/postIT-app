@@ -42,11 +42,14 @@ const Login = () => {
   useEffect(() => {
     if (isError) {
       navigate("/");
+    } else if (isSuccess) {
+      if (user && user.userType === "user") {
+        navigate("/home");
+      } else {
+        navigate("/manage");
+      }
     }
-    if (isSuccess) {
-      navigate("/home");
-    }
-  }, [user, isError, isSuccess]);
+  }, [user, isError, isSuccess, navigate]);
 
   return (
     <div>

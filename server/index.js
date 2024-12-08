@@ -253,7 +253,20 @@ app.put(
     }
   }
 );
+//GET API - getPost
+app.get("/getUsers", async (req, res) => {
+  try {
+    // Fetch all users from the "UserModel" collection, sorted by createdAt in descending order
+    const users = await UserModel.find({}).sort({ name: 1 });
 
+    const userPost = await UserModel.countDocuments({});
+
+    res.send({ users: users, count: userPost });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
 const port = ENV.PORT || 3001;
 
 app.listen(port, () => {

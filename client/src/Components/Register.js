@@ -55,7 +55,7 @@ const Register = () => {
       console.log("Form Data", data);
       alert("Validation all good.");
       dispatch(registerUser(userData)); // Dispatch an action to add a new user by passing the user data to the Redux store
-      navigate("/login"); //redirect to login component
+      navigate("/"); //redirect to login component
     } catch (error) {
       console.log("Error.");
     }
